@@ -4,6 +4,11 @@
   "main": "index.js",
   "repository": "https://github.com/vinibispo/usuarios-million.git",
   "author": "vinibispo <vini.bispo015@gmail.com>",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "jasmine"
+  },
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
