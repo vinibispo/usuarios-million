@@ -1,0 +1,8 @@
+{
+  "name": "usuarios-million",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vinibispo/usuarios-million.git",
+  "author": "vinibispo <vini.bispo015@gmail.com>",
+  "license": "MIT"
+}
