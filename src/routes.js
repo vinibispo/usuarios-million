@@ -6,11 +6,11 @@ const UserController = require('../src/controllers/UserController');
 // router.get('/', (req, res)=>{
 //     res.send('Hello World')
 // })
-router.get('/', UserController.index);
+router.get('/user', UserController.index);
 router.get('/user/:user_id', UserController.getById);
-router.post('/', UserController.create);
-router.put('/:user_id', UserController.change);
-router.delete('/:user_id', UserController.delete);
+router.post('/user', UserController.create);
+router.put('/user/:user_id', UserController.change);
+router.delete('/user/:user_id', UserController.delete);
 
 
 module.exports = router
