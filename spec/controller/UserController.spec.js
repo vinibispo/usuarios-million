@@ -28,7 +28,7 @@ describe("UsrController", () => {
                 nivel: 1
             }            
     ]);
-
+  })
   describe("GET /adm.json - deve retornar uma lista de administradores", () => {
     it("deve retornar o status code de 200", async(done) => {
       const response = await axios.get(`${host}/adm.json`, _headers)
@@ -84,5 +84,4 @@ describe("UsrController", () => {
         done();
     });
   });
-}
-)})
+})
