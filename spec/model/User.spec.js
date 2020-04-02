@@ -27,7 +27,7 @@ describe('Modelo User', () => {
     let cpfg = `${new Date().getTime()}`;
     const usr =  await User.create({nome: nome, cpf: cpfg, senha: crypto.randomBytes(4).toString('HEX'), telefone: '12457845',logradouro_rua: 'rua seia la',email: nome + '@torneseumprogramador.com.br',logradouro_cep: '13294666', logradouro_bairro: 'Vila Adolfo', logradouro_cidade: 'Itajaí', banco_transferencia: '121', nivel_investidor: '4'});
     try{
-      const usr2 =  await User.create({ nome: nome, cpf: cpfg, fone: '12457845',endereco: 'rua seia la',email: nome + '@torneseumprogramador.com.br',banco: 1, nivel: 1 });
+      const usr2 =  await User.create({nome: nome, cpf: cpfg, senha: crypto.randomBytes(4).toString('HEX'), telefone: '12457845',logradouro_rua: 'rua seia la',email: nome + '@torneseumprogramador.com.br',logradouro_cep: '13294666', logradouro_bairro: 'Vila Adolfo', logradouro_cidade: 'Itajaí', banco_transferencia: '121', nivel_investidor: '4'});
     }
     catch(err){
       erro = err
@@ -35,29 +35,29 @@ describe('Modelo User', () => {
     expect(erro).not.toBe(undefined)
   });
 
-  it('Não deve incluir um usuario sem nome', () => {
+  it('Não deve incluir um usuario sem nome', async () => {
     let nome = null;
+    let erro = ''
     let cpfg = `${new Date().getTime()}`;
-    const usr =  new User({ nome: nome, cpf: cpfg, fone: '12457845',endereco: 'rua seia la',email: nome + '@torneseumprogramador.com.br',banco: 1, nivel: 1 });
-
-    usr.save(error => {
-      expect(error == undefined || error == null).toBe(false);
-    })
+    try {
+      const usr =  await User.create({ nome: nome, cpf: cpfg, senha: crypto.randomBytes(4).toString('HEX'), telefone: '12457845',logradouro_rua: 'rua seia la',email: nome + '@torneseumprogramador.com.br',logradouro_cep: '13274666', logradouro_bairro: 'Vila do Coco', logradouro_cidade: 'Itanhanhém', banco_transferencia: '122', nivel_investidor: '5'});
+    } catch (error) {
+      erro = error
+    }
+    expect(erro).not.toBe(undefined)
   });
 
-  it('Não deve alterar um registro', () => {
+  it('Não deve alterar um registro', async() => {
     let nome = `nome ${new Date().getTime()}`;
+    let err = ''
     let cpfg = `${new Date().getTime()}`;
-    const usr =  new User({ nome: nome, cpf: cpfg, fone: '12457845',endereco: 'rua seia la',email: nome + '@torneseumprogramador.com.br',banco: 1, nivel: 1 });
-    usr.save(error => {
-      let novoNome = "Danilo" + new Date().getTime();
-      usr.nome = novoNome
-      usr.save(error => {
-        expect(error == undefined || error == null).toBe(true);
-        User.find({nome: novoNome}).then(dado => {
-          expect(dado.length > 0).toBe(true);
-        });
-      });
-    })
+    const usr =  await User.create({ nome: nome, cpf: cpfg, senha: crypto.randomBytes(4).toString('HEX'), telefone: '12457845',logradouro_rua: 'Rua Pedro Ferreira dos Santos',email: nome + '@torneseumprogramador.com.br',logradouro_cep: '13295000', logradouro_bairro: 'Parque das Hortênsias', logradouro_cidade: 'Itupeva', banco_transferencia: '132', nivel_investidor: '10'});
+    try{
+      const user = await User.findByIdAndUpdate('123', {nome: nome+'1', cpf: cpfg, senha: crypto.randomBytes(4).toString('HEX'), telefone: '12457845',logradouro_rua: 'Rua Pedro Ferreira dos Santos',email: nome + '@torneseumprogramador.com.br',logradouro_cep: '13295000', logradouro_bairro: 'Parque das Hortênsias', logradouro_cidade: 'Itupeva', banco_transferencia: '132', nivel_investidor: '10'})
+    }
+    catch(error){
+      err = error
+    }
+    expect(err).toBeDefined()
   });
 });
