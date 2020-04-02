@@ -49,7 +49,7 @@ const UserController = {
 
     }
     catch(err){
-      res.status(401).send({})
+      res.status(401).send(err)
     }
   }
 }
