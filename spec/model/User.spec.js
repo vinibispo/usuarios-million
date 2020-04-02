@@ -17,20 +17,22 @@ describe('Modelo User', () => {
   it('Deve incluir um usuario', async () => {
     let nome = `nome ${new Date().getTime()}`;
     let cpfg = `${new Date().getTime()}`;
-    const usr = await User.create({ nome: nome, cpf: cpfg, senha: , telefone: '12457845',logradouro_rua: 'rua seia la',email: nome + '@torneseumprogramador.com.br',logradouro_cep: '13295666', logradouro_bairro: 'Vila Martins', logradouro_cidade: 'Itararé', banco_transferencia: '120', nivel_investidor: '3'});
+    const usr = await User.create({ nome: nome, cpf: cpfg, senha: crypto.randomBytes(4).toString('HEX'), telefone: '12457845',logradouro_rua: 'rua seia la',email: nome + '@torneseumprogramador.com.br',logradouro_cep: '13295666', logradouro_bairro: 'Vila Martins', logradouro_cidade: 'Itararé', banco_transferencia: '120', nivel_investidor: '3'});
     expect(usr).not.toBe(undefined)
   });
 
-  it('Não deve incluir um usuario repetido', () => {
+  it('Não deve incluir um usuario com cpf repetido', async() => {
     let nome = `nome ${new Date().getTime()}`;
+    let erro=''
     let cpfg = `${new Date().getTime()}`;
-    const usr =  new User({ nome: nome, cpf: cpfg, fone: '12457845',endereco: 'rua seia la',email: nome + '@torneseumprogramador.com.br',banco: 1, nivel: 1 });
-    usr.save(error => {
-      const usr2 =  new User({ nome: nome, cpf: cpfg, fone: '12457845',endereco: 'rua seia la',email: nome + '@torneseumprogramador.com.br',banco: 1, nivel: 1 });
-      usr2.save(error => {
-        expect(error == undefined || error == null).toBe(false);
-      });
-    })
+    const usr =  await User.create({nome: nome, cpf: cpfg, senha: crypto.randomBytes(4).toString('HEX'), telefone: '12457845',logradouro_rua: 'rua seia la',email: nome + '@torneseumprogramador.com.br',logradouro_cep: '13294666', logradouro_bairro: 'Vila Adolfo', logradouro_cidade: 'Itajaí', banco_transferencia: '121', nivel_investidor: '4'});
+    try{
+      const usr2 =  await User.create({ nome: nome, cpf: cpfg, fone: '12457845',endereco: 'rua seia la',email: nome + '@torneseumprogramador.com.br',banco: 1, nivel: 1 });
+    }
+    catch(err){
+      erro = err
+    }
+    expect(erro).not.toBe(undefined)
   });
 
   it('Não deve incluir um usuario sem nome', () => {
