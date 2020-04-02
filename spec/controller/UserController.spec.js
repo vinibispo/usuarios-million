@@ -1,10 +1,10 @@
 //teste de controller
-const axios = require('axios').default;
+const supertest = require('supertest');
 const crypto = require('crypto')
-const host = "http://localhost:3000";
 const Usr = require('../../src/models/User');
 const TOKEN = "123456";
-const _headers = {headers: {'token':TOKEN}};
+const app = require('../../src/app')
+const request = supertest(app)
 
 describe("UsrController", () => {
   beforeEach(async()=>{
@@ -17,14 +17,14 @@ describe("UsrController", () => {
   })
   describe("GET /user - deve retornar uma lista de administradores", () => {
     it("deve retornar o status code de 200", async(done) => {
-      const response = await axios.get(`${host}/user`, _headers)
+      const response = await request.get(`/user`).set({ 'token': TOKEN})
       expect(response.status).toBe(200)
       done();
     });
 
     it("deve retornar dados na API", async(done) => {
-       const response = await axios.get(`${host}/user`, _headers)
-        const itens = response.data;
+       const response = await request.get(`/user`).set({'token': TOKEN})
+        const itens = response.body;
         expect(itens[0].nome).toBe("Danilo1");
         expect(itens[1].nome).toBe("Danilo2");
         done()
@@ -49,7 +49,7 @@ describe("UsrController", () => {
           nivel_investidor: "3"
 
         }
-        const response = await axios.post(`${host}/user`, body, _headers)
+        const response = await request.post(`/user`).send(body).set({'token': TOKEN})
         expect(response.status).toBe(201)
       done();
     });
@@ -83,7 +83,7 @@ describe("UsrController", () => {
       nivel_investidor: "3"
 
     }
-        const response = await axios.put(`${host}/user/${user._id}`, body, _headers)
+        const response = await request.put(`/user/${user._id}`).send(body).set({'token': TOKEN})
         expect(response.status).toBe(204);
         done();
       });
@@ -102,7 +102,7 @@ describe("UsrController", () => {
       logradouro_cidade: "Várzea Paulista",
       banco_transferencia: "432",
       nivel_investidor: "5" })        // let options = {
-        const response = await axios.delete(`${host}/user/${user._id}`, _headers)
+        const response = await request.delete(`/user/${user._id}`).set({'token': TOKEN})
         expect(response.status).toBe(204)
         done();
     });

@@ -31,7 +31,6 @@ const UserController = {
   },
 
   change: async(req, res, next) => {
-    console.log(req.params.user_id)
     try{
       await User.findOneAndUpdate({_id: req.params.user_id}, { nome: req.body.nome, senha: req.body.senha, email: req.body.email, cpf: req.body.cpf, telefone: req.body.telefone, logradouro_rua: req.body.logradouro_rua, logradouro_cep: req.body.logradouro_cep, logradouro_bairro: req.body.logradouro_bairro, logradouro_cidade: req.body.logradouro_cidade, banco_transferencia: req.body.banco_transferencia, nivel_investidor: req.body.nivel_investidor})
       res.status(204).send(`Alterado com o id ${req.params.user_id}`)
