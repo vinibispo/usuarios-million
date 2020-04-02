@@ -1,7 +1,7 @@
 const User = require('../models/User');
 
 const UserController = {
-  index: (req, res, next) => {
+  index: async (req, res, next) => {
     try{
     const user = await User.find({})
     res.status(200).send(user)
@@ -11,7 +11,7 @@ const UserController = {
     }
   },
 
-  getById: (req, res, next) => {
+  getById: async (req, res, next) => {
     try {
       const user = await User.findById(req.params.user_id)
       return res.status(200).send(user)
@@ -20,7 +20,7 @@ const UserController = {
     }
   },
   
-  create: (req, res, next) => {
+  create: async (req, res, next) => {
     const {nome, senha, email, cpf, telefone, logradouro_rua, logradouro_cep, logradouro_bairro, logradouro_cidade, banco_transferencia, nivel_investidor} = req.body
     try {
       const user = await User.create({ nome, senha, email, cpf, telefone, logradouro_rua, logradouro_cep, logradouro_bairro, logradouro_cidade, banco_transferencia, nivel_investidor});

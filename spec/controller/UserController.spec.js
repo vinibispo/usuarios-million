@@ -3,7 +3,7 @@ const axios = require('axios').default;
 const host = "http://localhost:3000";
 const Usr = require('../../src/models/User');
 const TOKEN = "123456";
-const _headers = {};//{headers: {'token':TOKEN}};
+const _headers = {headers: {'token':TOKEN}};
 
 describe("UsrController", () => {
   beforeEach(async()=>{
