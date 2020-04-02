@@ -13,11 +13,12 @@ const UserController = {
   },
 
   getById: (req, res, next) => {
-    User
-    .findById(req.params.user_id)
-    .then(dado => res.status(200).send(dado)
-    ).catch(e => e.status(400).send(e));
-  
+    try {
+      const user = await User.findById(req.params.user_id)
+      return res.status(200).send(user)
+    } catch (error) {
+      res.status(401).send(err)
+    }
   },
   
   create: (req, res, next) => {
