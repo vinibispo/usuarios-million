@@ -9,7 +9,7 @@ const UserController = {
     ).catch(e => e.status(400).send(e));
 
   },
-  
+
   getById: (req, res, next) => {
     User
     .findById(req.params.user_id)
@@ -17,9 +17,11 @@ const UserController = {
     ).catch(e => e.status(400).send(e));
   
   },
+  
   create: (req, res, next) => {
     console.log(req.body)
-    const user = new User({ nome: req.body.nome, senha: req.body.senha, email: req.body.email, cpf: req.body.cpf, telefone: req.body.telefone, logradouro_rua: req.body.logradouro_rua, logradouro_cep: req.body.logradouro_cep, logradouro_bairro: req.body.logradouro_bairro, logradouro_cidade: req.body.logradouro_cidade, banco_transferencia: req.body.banco_transferencia, nivel_investidor: req.body.nivel_investidor});
+    const user = new User(req.body);
+    //const user = new User({ nome: req.body.nome, senha: req.body.senha, email: req.body.email, cpf: req.body.cpf, telefone: req.body.telefone, logradouro_rua: req.body.logradouro_rua, logradouro_cep: req.body.logradouro_cep, logradouro_bairro: req.body.logradouro_bairro, logradouro_cidade: req.body.logradouro_cidade, banco_transferencia: req.body.banco_transferencia, nivel_investidor: req.body.nivel_investidor});
     user.save(error => {
       if(error){
         res.status(401).send(error)
