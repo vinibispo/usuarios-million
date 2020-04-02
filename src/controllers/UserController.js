@@ -1,4 +1,3 @@
-//Aqui vai ficar o controller
 const User = require('../models/User');
 
 const UserController = {
