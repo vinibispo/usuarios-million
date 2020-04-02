@@ -1,11 +1,11 @@
 //Aqui vai ficar o teste para a model
 const User = require('../../src/models/User');
-User.deleteMany({email: /torneseumprogramador/}).then(error => {});
 
 describe('Modelo User', () => {
 
-  // beforeEach(function() {
-  // });
+  beforeEach(async ()=>{
+    await User.deleteMany()
+  });
 
   it('Deve retornar o modelo de User', () => {
     User.find().then(dado => {
