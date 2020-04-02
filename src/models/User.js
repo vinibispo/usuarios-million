@@ -1,4 +1,5 @@
-const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
+const mongoose = require('../config/database'); 
 
 const UserSchema = new mongoose.Schema({
   nome: {
