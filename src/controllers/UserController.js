@@ -22,17 +22,13 @@ const UserController = {
   },
   
   create: (req, res, next) => {
-    console.log(req.body)
-    const user = new User(req.body);
-    //const user = new User({ nome: req.body.nome, senha: req.body.senha, email: req.body.email, cpf: req.body.cpf, telefone: req.body.telefone, logradouro_rua: req.body.logradouro_rua, logradouro_cep: req.body.logradouro_cep, logradouro_bairro: req.body.logradouro_bairro, logradouro_cidade: req.body.logradouro_cidade, banco_transferencia: req.body.banco_transferencia, nivel_investidor: req.body.nivel_investidor});
-    user.save(error => {
-      if(error){
-        res.status(401).send(error)
-        return
-      }
-      console.log("create User")
-      res.status(201).send({});
-    });
+    const {nome, senha, email, cpf, telefone, logradouro_rua, logradouro_cep, logradouro_bairro, logradouro_cidade, banco_transferencia, nivel_investidor} = req.body
+    try {
+      const user = await User.create({ nome, senha, email, cpf, telefone, logradouro_rua, logradouro_cep, logradouro_bairro, logradouro_cidade, banco_transferencia, nivel_investidor});
+      res.status(201).send(user)
+    } catch (error) {
+      res.status(401).send(error)
+    }
   },
 
   change: async(req, res, next) => {
