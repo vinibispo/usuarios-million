@@ -3,11 +3,13 @@ const User = require('../models/User');
 
 const UserController = {
   index: (req, res, next) => {
-    User
-    .find({})
-    .then(dado => res.status(200).send(dado)
-    ).catch(e => e.status(400).send(e));
-
+    try{
+    const user = await User.find({})
+    res.status(200).send(user)
+    }
+    catch(err){
+      res.status(401).send(err)
+    }
   },
 
   getById: (req, res, next) => {
