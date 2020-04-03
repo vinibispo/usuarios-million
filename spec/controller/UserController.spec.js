@@ -15,7 +15,7 @@ describe("UsrController", () => {
       {nome: "Danilo2", cpf: "1234567891", senha: crypto.randomBytes(4).toString('HEX'), telefone: '12347845',logradouro_rua: 'rua seia la',email: nome +'bb@torneseumprogramador.com.br',logradouro_cep: '13274566', logradouro_bairro: 'Vila da Rosa', logradouro_cidade: 'Itatiba', banco_transferencia: '222', nivel_investidor: '8'},
     ]);
   })
-  describe("GET /user - deve retornar uma lista de administradores", () => {
+  describe("GET /user", () => {
     it("deve retornar o status code de 200", async(done) => {
       const response = await request.get(`/user`).set({ 'token': TOKEN})
       expect(response.status).toBe(200)
@@ -33,7 +33,7 @@ describe("UsrController", () => {
 // 
 
   describe("POST /user", () => {
-    it("deve cadastrar um administrador", async(done) => {
+    it("deve cadastrar um usuário", async(done) => {
       let nome = `teste ${new Date().getTime()}`;
         const body = { 
           nome,
@@ -49,15 +49,16 @@ describe("UsrController", () => {
           nivel_investidor: "3"
 
         }
-        const response = await request.post(`/user`).send(body).set({'token': TOKEN})
+        const response = await request.post(`/user`).set('token', TOKEN).send(body)
+
         expect(response.status).toBe(201)
       done();
     });
   });
 // 
   describe("PUT /user ", () => {
-    it("deve alterar um administrador", async(done) => {
-      let nome = `teste ${new Date().getTime()}`;
+    let nome = `teste ${new Date().getTime()}`;
+      it("deve alterar um administrador", async(done) => {
      const user = await Usr.create({ nome: nome, cpf: "1234560987",
       senha: '123456',
       email: nome + '@torneseumprogramador.com.br',
@@ -83,7 +84,7 @@ describe("UsrController", () => {
       nivel_investidor: "3"
 
     }
-        const response = await request.put(`/user/${user._id}`).send(body).set({'token': TOKEN})
+        const response = await request.put(`/user/${user._id}`).set('token', TOKEN).send(body)
         expect(response.status).toBe(204);
         done();
       });
@@ -102,7 +103,7 @@ describe("UsrController", () => {
       logradouro_cidade: "Várzea Paulista",
       banco_transferencia: "432",
       nivel_investidor: "5" })        // let options = {
-        const response = await request.delete(`/user/${user._id}`).set({'token': TOKEN})
+        const response = await request.delete(`/user/${user._id}`).set('token', TOKEN)
         expect(response.status).toBe(204)
         done();
     });
