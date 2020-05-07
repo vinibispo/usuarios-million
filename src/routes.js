@@ -6,6 +6,7 @@ const UserController = require('../src/controllers/UserController');
 // router.get('/', (req, res)=>{
 //     res.send('Hello World')
 // })
+router.get('/', UserController.home)
 router.get('/user', UserController.index);
 router.get('/user/:user_id', UserController.getById);
 router.post('/user', UserController.create);

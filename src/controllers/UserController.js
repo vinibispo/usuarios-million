@@ -3,6 +3,9 @@ const User = require('../models/User');
 const TOKEN = "123456"
 
 const UserController = {
+  home (req, res) {
+    return res.send('API usuarios-million protegida por TOKEN')
+  },
   index: async (req, res, next) => {
     if(req.headers.token === TOKEN){
       try{
